@@ -5,8 +5,9 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+  <h2>HASH LIST</h2>
     <%for(const i in result){%>
-        <p><b><%=i%> : </b> <%=result[i]%></p>
+        <p><b><%=i%> : </b><a href="http://localhost:3000/blocks/<%=result[i]%>"><%=result[i]%></a> </p>
     <%}%>
   </body>
 </html>
