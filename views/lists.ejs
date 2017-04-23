@@ -9,7 +9,8 @@
     <p><b>평균 트랜잭션의 값(value)   : </b> <%=result.avg_value%></p>
     <p><b>평균 트랜잭션의 수수료(fee) : </b> <%=result.avg_fee%></p>
     <p><b>평균 트랜잭션의 크기(size)  : </b> <%=result.avg_size%></p>
-
+    <a href="http://localhost:3000/blocks/<%=result.hash%>/input">input 보기</a>
+    <a href="http://localhost:3000/blocks/<%=result.hash%>/output">output 보기</a>
     <a href="#" onclick="history.go(-1)">뒤로 가기</a>
 </body>
 </html>

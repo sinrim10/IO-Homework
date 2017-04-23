@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<a href="#" onclick="history.go(-1)">뒤로 가기</a>
+
+    <% for(let i in result){%>
+        <p><b>[<%=i%>] : </b> <%=JSON.stringify(result[i],null,3)%></p>
+    <%}%>
+</body>
+</html>

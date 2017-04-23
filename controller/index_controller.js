@@ -21,7 +21,7 @@ function findBlockInfo(req,res,next) {
         qs:{"format":'json'}
     }, function(error, response, body){
         if(error){
-            return cb(null,error);
+            return next(error);
         }
         const result = {};
         const json = JSON.parse(body);
@@ -47,11 +47,41 @@ function findBlockInfo(req,res,next) {
         result.avg_value = value_sum/tx_length;
         result.avg_size = size_sum/tx_length;
         result.avg_fee = json.fee/tx_length;
+        result.hash = req.params.hash;
         res.render('lists', { result: result });
+    });
+}
+
+function findBlockType(req,res,next) {
+    const url = "https://blockchain.info/block-index/"+req.params.hash;
+    const type = req.params.type;
+    if(['input','output'].indexOf(type) === -1){
+        return res.status(400).json({msg :'not input or output'});
+    }
+    request({
+        url: url, //URL to hit
+        method: 'GET',
+        qs:{"format":'json'}
+    }, function(error, response, body){
+        if(error){
+            return next(error);
+        }
+        const obj = [];
+        const json = JSON.parse(body);
+        json.tx.forEach(function(r){
+            if(type === 'input'){
+                obj.push(r.inputs);
+            } else if (type === 'output'){
+                obj.push(r.out);
+            }
+        });
+        return res.render('details',{result : obj});
+        //return res.status(200).json({result : obj});
     });
 }
 
 module.exports = {
     crawler : crawler,
-    findBlockInfo: findBlockInfo
+    findBlockInfo: findBlockInfo,
+    findBlockType: findBlockType
 }
